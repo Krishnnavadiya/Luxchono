@@ -1,275 +1,339 @@
+const fs = require("fs");
+const path = require("path");
 const UserModel = require("../model/user_model");
 const OtpModel = require("../model/otp_model");
+const NotificationModel = require("../model/notification_model");
 const ApiError = require("../util/error");
 const { generateOtp } = require("../util/utils");
 const transporter = require("../util/transporter");
-const fs = require("fs");
-const path = require("path");
 const { comparePassword } = require("../util/hash");
 const { createToken } = require("../util/jwt_token");
-const { USER_ROLE, PUBLIC_NOTIFICATION, PRIVATE_NOTIFICATION } = require("../config/string");
-const { USER_RESET_PASSWORD_ROUTE, ADMIN_RESET_PASSWORD_ROUTE } = require("../config/config");
-const NotificationModel = require("../model/notification_model");
+const {
+  USER_ROLE,
+  PUBLIC_NOTIFICATION,
+  PRIVATE_NOTIFICATION,
+} = require("../config/string");
+const {
+  USER_RESET_PASSWORD_ROUTE,
+  ADMIN_RESET_PASSWORD_ROUTE,
+} = require("../config/config");
 
+/**
+ * Helper: read HTML template and replace placeholders
+ */
+function loadTemplate(file, replacements = {}) {
+  let html = fs.readFileSync(file, "utf-8");
+  Object.entries(replacements).forEach(([key, value]) => {
+    html = html.replace(key, value);
+  });
+  return html;
+}
+
+/**
+ * Helper: send email (promisified)
+ */
+async function sendMail({ to, subject, html }) {
+  return transporter.sendMail({ to, subject, html });
+}
+
+/**
+ * Send OTP for email verification
+ */
 async function verifyEmail(req, res, next) {
   try {
     const { email } = req.body;
-    const filePath = path.join(__dirname, "../../public/otp.html");
-    let htmlData = fs.readFileSync(filePath, "utf-8");
     const otp = generateOtp();
-    htmlData = htmlData.replace("${otp}", otp);
-    transporter.sendMail(
-      {
-        to: email,
-        subject: "Verify email",
-        html: htmlData,
-      },
-      async (err, _result) => {
-        if (err) {
-          return next(new ApiError(400, err.message));
-        }
-        await OtpModel.deleteMany({ email: email });
-        const otpModel = new OtpModel({ email, otp });
-        await otpModel.save();
-        setTimeout(async () => {
-          await OtpModel.findByIdAndDelete(otpModel._id);
-        }, 1000 * 60);
-        res.status(200).json({
-          statusCode: 200,
-          success: true,
-          message: "Otp send your email",
-        });
-      }
+
+    const htmlData = loadTemplate(
+      path.join(__dirname, "../../public/otp.html"),
+      { "${otp}": otp }
     );
+
+    await sendMail({ to: email, subject: "Verify email", html: htmlData });
+
+    await OtpModel.deleteMany({ email });
+    const otpModel = new OtpModel({ email, otp });
+    await otpModel.save();
+
+    // Auto-expire OTP after 1 minute
+    setTimeout(async () => {
+      await OtpModel.findByIdAndDelete(otpModel._id);
+    }, 60 * 1000);
+
+    return res.status(200).json({
+      statusCode: 200,
+      success: true,
+      message: "OTP sent to your email",
+    });
   } catch (e) {
-    next(new ApiError(400, e.message));
+    return next(new ApiError(400, e.message));
   }
 }
 
+/**
+ * Verify OTP
+ */
 async function verifyOtp(req, res, next) {
   try {
     const { email, otp } = req.body;
     const findOtp = await OtpModel.findOne({ email });
-    if (!findOtp) {
-      return next(new ApiError(400, "Otp Expired"));
-    }
-    if (findOtp.otp !== otp) {
-      return next(new ApiError(400, "Otp is wrong"));
-    }
-    await OtpModel.deleteMany({ email: email });
-    res
-      .status(200)
-      .json({ statusCode: 200, success: true, message: "Otp is Verified" });
+
+    if (!findOtp) return next(new ApiError(400, "OTP expired"));
+    if (findOtp.otp !== otp) return next(new ApiError(400, "Invalid OTP"));
+
+    await OtpModel.deleteMany({ email });
+
+    return res.status(200).json({
+      statusCode: 200,
+      success: true,
+      message: "OTP verified successfully",
+    });
   } catch (e) {
-    next(new ApiError(400, e.message));
+    return next(new ApiError(400, e.message));
   }
 }
 
+/**
+ * Register user
+ */
 async function register(req, res, next) {
   try {
     const { email } = req.body;
-    const findUser = await UserModel.findOne({ email });
-    if (findUser) {
-      return next(new ApiError(400, "User alerdy Exist"));
+
+    if (await UserModel.findOne({ email })) {
+      return next(new ApiError(400, "User already exists"));
     }
+
     const user = new UserModel({ ...req.body, role: USER_ROLE });
     await user.save();
-    res.status(200).json({
+
+    return res.status(200).json({
       statusCode: 200,
       success: true,
-      message: "Register successfully",
+      message: "Registered successfully",
     });
   } catch (e) {
     return next(new ApiError(400, e.message));
   }
 }
 
+/**
+ * Login user
+ */
 async function login(req, res, next) {
   try {
     const { email, password } = req.body;
-    const findUser = await UserModel.findOne({ email });
-    if (!findUser) {
-      return next(new ApiError(400, "Email is not exist"));
+    const user = await UserModel.findOne({ email });
+
+    if (!user) return next(new ApiError(400, "Email does not exist"));
+    if (!comparePassword(password, user.password)) {
+      return next(new ApiError(400, "Incorrect password"));
     }
-    const match = comparePassword(password, findUser.password);
-    if (!match) {
-      return next(new ApiError(400, "Password is wrong"));
-    }
+
     const token = createToken({
-      _id: findUser._id,
+      _id: user._id,
       role: USER_ROLE,
-      email: findUser.email,
+      email: user.email,
     });
-    res.status(200).json({
+
+    return res.status(200).json({
       statusCode: 200,
       success: true,
       token,
-      message: "login successfully",
+      message: "Login successful",
     });
   } catch (e) {
     return next(new ApiError(400, e.message));
   }
 }
 
+/**
+ * Forgot password (send reset link)
+ */
 async function forgotPassword(req, res, next) {
   try {
     const { email } = req.body;
-    const findUser = await UserModel.findOne({ email });
-    if (!findUser) {
-      return next(new ApiError(400, "This email user not exist"));
-    }
+    const user = await UserModel.findOne({ email });
+
+    if (!user) return next(new ApiError(400, "User not found"));
+
     const filePath = path.join(__dirname, "../../public/reset_password.html");
-    let htmlData = fs.readFileSync(filePath, "utf-8");
-    if (findUser.role === USER_ROLE) {
-      htmlData = htmlData.replace(
-        "${resetPasswordLink}",
-        `${USER_RESET_PASSWORD_ROUTE}?id=${findUser._id}`
-      );
-    } else {
-      htmlData = htmlData.replace(
-        "${resetPasswordLink}",
-        `${ADMIN_RESET_PASSWORD_ROUTE}?id=${findUser._id}`
-      );
-    }
-    transporter.sendMail(
-      {
-        to: email,
-        subject: "Reset password",
-        html: htmlData,
-      },
-      async (err, _result) => {
-        if (err) {
-          return next(new ApiError(400, err.message));
-        }
-        res.status(200).json({
-          statusCode: 200,
-          success: true,
-          message: "Reset password mail send to your email",
-        });
-      }
-    );
+    const resetLink =
+      user.role === USER_ROLE
+        ? `${USER_RESET_PASSWORD_ROUTE}?id=${user._id}`
+        : `${ADMIN_RESET_PASSWORD_ROUTE}?id=${user._id}`;
+
+    const htmlData = loadTemplate(filePath, { "${resetPasswordLink}": resetLink });
+
+    await sendMail({ to: email, subject: "Reset password", html: htmlData });
+
+    return res.status(200).json({
+      statusCode: 200,
+      success: true,
+      message: "Reset password email sent",
+    });
   } catch (e) {
     return next(new ApiError(400, e.message));
   }
 }
 
+/**
+ * Reset password
+ */
 async function resetPassword(req, res, next) {
   try {
-    const id = req.query.id;
+    const { id } = req.query;
     const { newPassword } = req.body;
-    if (!id) {
-      return next(new ApiError(400, "User id is required"));
-    }
-    if (!newPassword) {
-      return next(new ApiError(400, "Password is required"));
-    }
-    const findUser = await UserModel.findById(id);
-    if (!findUser) {
-      return next(new ApiError(400, "User is not exist"));
-    }
-    findUser.password = newPassword;
-    await findUser.save({ validateBeforeSave: true });
-    res.status(200).json({
+
+    if (!id) return next(new ApiError(400, "User ID is required"));
+    if (!newPassword) return next(new ApiError(400, "Password is required"));
+
+    const user = await UserModel.findById(id);
+    if (!user) return next(new ApiError(400, "User not found"));
+
+    user.password = newPassword.trim();
+    await user.save({ validateBeforeSave: true });
+
+    return res.status(200).json({
       statusCode: 200,
       success: true,
-      message: "Password change successfully",
+      message: "Password changed successfully",
     });
   } catch (e) {
     return next(new ApiError(400, e.message));
   }
 }
 
+/**
+ * Convert user ID to email
+ */
 async function idToEmail(req, res, next) {
   try {
-    const id = req.query.id;
-    if (!id) {
-      return next(new ApiError(400, "User id is required"));
-    }
-    const findUser = await UserModel.findById(id);
-    if (!findUser) {
-      return next(new ApiError(400, "User is not exist"));
-    }
-    res.status(200).json({
+    const { id } = req.query;
+
+    if (!id) return next(new ApiError(400, "User ID is required"));
+
+    const user = await UserModel.findById(id).lean();
+    if (!user) return next(new ApiError(400, "User not found"));
+
+    return res.status(200).json({
       statusCode: 200,
       success: true,
-      data: { email: findUser.email },
+      data: { email: user.email },
     });
   } catch (e) {
     return next(new ApiError(400, e.message));
   }
 }
 
+/**
+ * Change password (logged-in user)
+ */
 async function changePassword(req, res, next) {
   try {
     const { password, newPassword } = req.body;
-    const findUser = await UserModel.findById(req.user._id);
-    if (!findUser) {
-      return next(new ApiError(400, "Email is not exist"));
+    const user = await UserModel.findById(req.user._id);
+
+    if (!user) return next(new ApiError(400, "User not found"));
+    if (!comparePassword(password, user.password)) {
+      return next(new ApiError(400, "Old password is incorrect"));
     }
-    const match = comparePassword(password, findUser.password);
-    if (!match) {
-      return next(new ApiError(400, "Old password is wrong"));
+    if (comparePassword(newPassword, user.password)) {
+      return next(new ApiError(400, "New password must be different"));
     }
-    const newPasswordMatch = comparePassword(newPassword, findUser.password);
-    if (newPasswordMatch) {
-      return next(new ApiError(400, "This password is alreay used by you"));
-    }
-    findUser.password = newPassword.trim();
-    await findUser.save({ validateBeforeSave: true });
-    res.status(200).json({
+
+    user.password = newPassword.trim();
+    await user.save({ validateBeforeSave: true });
+
+    return res.status(200).json({
       statusCode: 200,
       success: true,
-      message: "Password change successfully",
+      message: "Password changed successfully",
     });
   } catch (e) {
     return next(new ApiError(400, e.message));
   }
 }
 
+/**
+ * Get user profile
+ */
 async function profile(req, res, next) {
   try {
-    const findUser = await UserModel.findById(req.id).select(
-      "-password -isVerified -isAdminVerified -publicId"
-    );
-    res.status(200).json({ statusCode: 200, success: true, data: findUser });
+    const user = await UserModel.findById(req.id)
+      .select("-password -isVerified -isAdminVerified -publicId")
+      .lean();
+
+    return res.status(200).json({
+      statusCode: 200,
+      success: true,
+      data: user,
+    });
   } catch (e) {
     return next(new ApiError(400, e.message));
   }
 }
 
+/**
+ * Edit profile
+ */
 async function editProfile(req, res, next) {
   try {
     req.user.username = req.body.username ?? req.user.username;
     req.user.phoneNo = req.body.phoneNo ?? req.user.phoneNo;
+
     await req.user.save();
-    res.status(200).json({
+
+    return res.status(200).json({
       statusCode: 200,
       success: true,
-      message: "profile update successfully",
+      message: "Profile updated successfully",
     });
   } catch (e) {
     return next(new ApiError(400, e.message));
   }
 }
 
+/**
+ * Get all notifications for user
+ */
 async function getAllNotification(req, res, next) {
   try {
-    let filter = {
-      $or: [
-        { type: PUBLIC_NOTIFICATION },
-      ]
+    const filter = {
+      $or: [{ type: PUBLIC_NOTIFICATION }],
     };
-    if(req.id) {
-      filter.$or.push(
-        { $and: [{ user: req.id }, { type: PRIVATE_NOTIFICATION }] }
-      );
+
+    if (req.id) {
+      filter.$or.push({
+        $and: [{ user: req.id }, { type: PRIVATE_NOTIFICATION }],
+      });
     }
 
-    const notifications = await NotificationModel.find(filter).sort({ createdAt: -1 });
-    res.status(200).json({ statusCode: 200, success: true, message: 'Get all user notification', data: notifications });
+    const notifications = await NotificationModel.find(filter)
+      .sort({ createdAt: -1 })
+      .lean();
+
+    return res.status(200).json({
+      statusCode: 200,
+      success: true,
+      message: "Notifications fetched",
+      data: notifications,
+    });
   } catch (e) {
     return next(new ApiError(400, e.message));
   }
 }
 
-module.exports = { verifyEmail, verifyOtp, register, login, changePassword, forgotPassword, resetPassword, idToEmail, profile, editProfile, getAllNotification };
+module.exports = {
+  verifyEmail,
+  verifyOtp,
+  register,
+  login,
+  changePassword,
+  forgotPassword,
+  resetPassword,
+  idToEmail,
+  profile,
+  editProfile,
+  getAllNotification,
+};
