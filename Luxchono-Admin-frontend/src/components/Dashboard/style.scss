@@ -1,0 +1,77 @@
+@import "../../constants/color";
+
+.dashboard_main_div {
+    .box_div {
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+        min-height: 5.5rem;
+        border-radius: 10px;
+        display: flex;
+        gap: 10px;
+
+        .content_icon {
+            background-color: $primary;
+            border-radius: 10px 00px 00px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 4rem;
+
+            .icon {
+                color: $white;
+                font-size: 30px;
+            }
+
+        }
+
+
+        .content_text {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            .content_heading {
+                font-size: 18px;
+
+            }
+
+            .content_value {
+                font-size: 24px;
+                font-weight: 600;
+
+            }
+
+        }
+    }
+
+    .chart_main_div {
+        .brand_chart_box {
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+            min-height: 18rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .pie_chart_heading {
+                font-weight: 600;
+                font-size: 20px;
+                display: flex;
+            }
+        }
+
+        .chart_box_heading{
+            font-size: 17px;
+            font-weight: 600;
+        }
+    }
+
+    .tables_div {
+        margin-top: 1rem;
+    }
+
+    .tables_heading {
+        font-size: 17px;
+
+        font-weight: 800;
+    }
+}

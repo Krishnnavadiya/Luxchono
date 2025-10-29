@@ -1,0 +1,53 @@
+@import "../../../constants/color";
+
+.dialog {
+    .dialog_wraper {
+        .logout_dialog_cancel {
+            text-transform: capitalize !important;
+            color: $font_color !important;
+            border-color: $font_color !important;
+            margin-top: -10px !important;
+            margin-bottom: 12px !important;
+            height: 2.6rem;
+        }
+
+        .logout_dialog_yes {
+            text-transform: capitalize !important;
+            background-color: $primary;
+            color: $white !important;
+            box-shadow: none !important;
+            margin-top: -10px !important;
+            margin-bottom: 12px !important;
+            width: 80px !important;
+            height: 2.6rem;
+            margin-left: 0.5rem;
+        }
+
+        .product_delete_yes {
+            text-transform: capitalize !important;
+            background-color: $delete;
+            color: $white !important;
+            box-shadow: none !important;
+            margin-top: -10px !important;
+            margin-bottom: 12px !important;
+            width: 151px !important;
+            height: 2.6rem;
+            margin-left: 0.5rem;
+        }
+
+        .product_delete_cancel {
+            text-transform: capitalize !important;
+            color: $font_color !important;
+            border-color: $font_color !important;
+            margin-top: -10px !important;
+            margin-bottom: 12px !important;
+            height: 2.6rem;
+            width: 151px !important;
+        }
+    }
+}
+
+.MuiDialog-paper {
+    border-radius: 20px !important;
+    width: 410px;
+}
