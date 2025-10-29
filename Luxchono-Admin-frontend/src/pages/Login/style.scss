@@ -1,0 +1,82 @@
+@import "../../constants/color";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.MuiFormHelperText-root {
+    font-weight: 800 !important;
+    color: #D32F2F !important;
+}
+
+.MuiFormHelperText-root {
+    font-weight: 800 !important;
+}
+
+
+.logincontainer {
+    background-image: url("../../assets/Images/loginbackground1.svg"), url("../../assets/Images/loginbackground2.svg");
+    background-repeat: no-repeat, no-repeat;
+    background-position: top right, bottom left;
+
+    .MuiInputBase-root {
+        border-radius: 12px !important;
+        height: 45px;
+    }
+}
+
+.paperboxshadow {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+}
+
+.loginField {
+    width: 100%;
+}
+
+.loginButton {
+    color: $white !important;
+    margin-top: 3rem !important;
+    height: 3rem;
+    font-weight: 700 !important;
+    text-transform: capitalize !important;
+    font-size: 1rem !important;
+    border-radius: 12px !important;
+}
+
+@media (max-width: 1500px) {
+    .logincontainer {
+        background-image: none !important;
+        width: 100% !important;
+    }
+}
+
+
+@media (max-width: 1000px) {
+    .logincontainer {
+        background-image: none !important;
+        width: 100% !important;
+        .loginpepar {
+            width: 100% !important;
+            height: 100vh;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0rem !important;
+            .LoginImg {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .logincontainer {
+        .loginpepar {
+            width: 100% !important;
+            border-radius: 0rem !important;
+        }
+    }
+}
