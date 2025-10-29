@@ -1,0 +1,55 @@
+@import "../../../constants/color";
+
+
+// .css-4eufpz-MuiTableCell-root{
+//     padding: 8px !important;
+// }
+
+// .css-18877bt-MuiTableCell-root {
+//     // padding: 12px !important;
+
+//     justify-content: center !important;
+// }
+
+
+.MuiTableCell-root {
+    font-weight: 800 !important;
+}
+
+.table_loading {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.table-pepar {
+    border-radius: 5px !important;
+    overflow: auto !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+
+    .table-container {
+        width: 100%;
+        height: 55vh;
+        position: relative;
+        // height: 100%;
+        // @media (min-width: 1080px) {
+        //     height: 60vh;
+        // }
+        // @media (max-width: 1080px) {
+        //     height: 55vh;
+        // }
+    }
+}
+
+.tablecells {
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    font-weight: 800 !important;
+    border: none !important;
+}

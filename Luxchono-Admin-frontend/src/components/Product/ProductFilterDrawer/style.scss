@@ -1,0 +1,89 @@
+@import "../../../constants/color";
+
+.categoryDrawer_contain {
+
+    width: 480px;
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .MuiInputBase-root {
+        border-radius: 5px !important;
+        height: 48px;
+        border: 0.5px;
+    }
+
+    .drawer_header_wrapper {
+        // display: flex;
+        // justify-content: space-between;
+        // align-items: center;
+        padding: 0px 20px;
+        border-bottom: 1px solid #e4ebf4;
+        position: fixed;
+        height: 72px;
+        top: 0px;
+        background-color: white;
+        z-index: 10;
+        width: 480px;
+
+        .price {
+            width: 100px;
+            border-radius: 12px !important;
+            padding: 5px;
+        }
+    }
+
+    .filter_icon {
+        background-color: $primary;
+        color: $white;
+        border-radius: 50%;
+        padding: 3px;
+
+    }
+
+    .filed_div {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        margin-top: 0.3rem;
+
+    }
+
+    .drawer_footer {
+        display: flex;
+        justify-content: right;
+        gap: 10px;
+        align-items: center;
+        padding: 0px 20px;
+        border-top: 1px solid #e4ebf4;
+        position: fixed;
+        height: 80px;
+        bottom: 0px;
+        background-color: white;
+        z-index: 10;
+        width: 480px;
+
+
+        .Category_Cancel_btn {
+            width: 5rem;
+            height: 2.5rem;
+            border: 1px solid $primary;
+            color: $primary;
+            background-color: white;
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+
+        .Category_Add_btn {
+            width: 5rem;
+            height: 2.5rem;
+            background-color: $primary;
+            color: white;
+            text-transform: capitalize;
+        }
+    }
+}

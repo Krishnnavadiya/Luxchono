@@ -1,0 +1,127 @@
+@import "../../constants/color";
+
+
+.paperboxshadow {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+}
+
+
+
+.productContainer {
+
+    // background-color: #F8F8F8;
+    .MuiInputBase-root {
+        border-radius: 12px !important;
+        height: 45px;
+    }
+
+    .productheaderbtn1 {
+        color: $font_color;
+        border-color: $font_color;
+        border-radius: 8px;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 14px;
+        width: 105px;
+        height: 43px;
+    }
+
+    .productheaderbtn2 {
+        background-color: $delete;
+        color: $white;
+        border-radius: 8px;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 14px;
+        width: 105px;
+        height: 43px;
+    }
+
+    .filter_button {
+        background-color: $primary;
+        color: $white;
+        border-radius: 8px;
+        height: 2.5rem;
+        width: 2.6rem;
+
+
+
+    }
+
+    .filter_button:hover {
+        background-color: $white;
+        color: $primary;
+        border: 2px solid $primary;
+
+    }
+
+    .addbtn {
+        background-color: $primary !important;
+
+    }
+
+    .addcustomerbtn {
+        background-color: $primary !important;
+        width: 154px !important;
+    }
+
+    .prices {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .MuiInputBase-root {
+            border-radius: 3px !important;
+            height: 45px;
+            border: 0.5px;
+        }
+
+        .price {
+            width: 150px;
+            border-radius: 12px !important;
+            padding: 5px;
+        }
+    }
+}
+
+.add_product {
+    width: 100% !important;
+
+    .close_icon {
+        margin-left: -8px !important;
+        margin-top: -8px !important;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .textareas {
+        .MuiTextField-root {
+            width: 100% !important;
+        }
+    }
+}
+
+.product_add_button {
+    text-transform: capitalize !important;
+    margin-top: 1rem !important;
+    margin-right: 1rem !important;
+}
+
+.productField {
+    width: 100%;
+
+    .MuiInputBase-root {
+        border-radius: 12px !important;
+        height: 45px;
+    }
+}
