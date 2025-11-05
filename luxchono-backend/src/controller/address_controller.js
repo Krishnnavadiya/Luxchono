@@ -38,6 +38,21 @@ async function getOneAddress(req, res, next) {
     }
 }
 
+async function updateAddress(req, res, next) {
+    try {
+        const body = req.body;
+        const aid = req.params.id;
+        const uid = req.id;
+        const updateAddress = await AddressModel.findOneAndUpdate({ uid, _id: aid }, { $set: body }, { runValidators: true, new: true });
+        if (updateAddress) {
+            res.status(200).json({ statusCode: 200, success: true, message: "Address update successfully" });
+        } else {
+            return next(new ApiError(400, 'Address not found'));
+        }
+    } catch (e) {
+        return next(new ApiError(400, e.message));
+    }
+}
 
 
 module.exports = { addAddress, getAddress, getOneAddress, updateAddress, deleteAddress };
