@@ -54,5 +54,19 @@ async function updateAddress(req, res, next) {
     }
 }
 
+async function deleteAddress(req, res, next) {
+    try {
+        const uid = req.id;
+        const aid = req.params.id;
+        const response = await AddressModel.findOneAndDelete({ _id: aid, uid });
+        if (response) {
+            res.status(200).json({ statusCode: 200, success: true, message: 'Address delete successfully' });
+        } else {
+            return next(new ApiError(400, "Address is not exist"));
+        }
+    } catch (e) {
+        return next(new ApiError(400, e.message));
+    }
+}
 
 module.exports = { addAddress, getAddress, getOneAddress, updateAddress, deleteAddress };
