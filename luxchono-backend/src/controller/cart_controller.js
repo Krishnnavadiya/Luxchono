@@ -116,6 +116,22 @@ async function updateCartProduct(req, res, next) {
     }
 }
 
+async function removeCart(req, res, next) {
+    try {
+        const pid = req.params.pid;
+        const uid = req.id;
+        const removeCart = await CartModel.findOneAndDelete({ uid, pid });
+        if (removeCart) {
+            let length = await CartModel.countDocuments({ uid });
+            return res.status(200).json({ statusCode: 200, success: true, message: "Cart delete successfully", data: { length } });
+        } else {
+            return next(new ApiError(400, 'Cart is not found'));
+        }
+    } catch (e) {
+        return next(new ApiError(400, e.message));
+    }
+}
+
 
 
 module.exports = { addCart, getAllCartProduct, updateCartProduct, removeCart, getAllCartIds };
