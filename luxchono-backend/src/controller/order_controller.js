@@ -188,5 +188,118 @@ async function makeOrder(req, res, next) {
     }
 }
 
+async function paymentOrder(req, res, next) {
+    try {
+        const { products, address, cod } = req.body;
+        if (!products) {
+            return next(new ApiError(400, "Product is not empty"));
+        }
+        if (products.length === 0) {
+            return next(new ApiError(400, "Product is not empty"));
+        }
+        if (!address) {
+            return next(new ApiError(400, "Please enter address"));
+        }
+        const userAddress = await AddressModel.findOne({ uid: req.id, _id: address });
+        if (!userAddress) {
+            return next(new ApiError(400, "Enter valid address"));
+        }
+        const orderProducts = [];
+        for (let i = 0; i < products.length; i++) {
+            orderProducts.push(getOrderProduct(products[i].product, products[i].quantity));
+        }
+        const data = await Promise.all(orderProducts);
+        for (let e of data) {
+            if (e.product.stock < e.quantity) {
+                return next(new ApiError(400, `${e.product.name} is out of stock`))
+            }
+        }
+        let orderProduct = data.map((e) => ({ product: e.product._id, orderProductPrice: e.orderProductPrice, quantity: e.quantity }));
+        let totalAmount = 0;
+        let paymentAmount = 0;
+        for (let i = 0; i < data.length; i++) {
+            paymentAmount += data[i].productTotalAmount;
+            totalAmount += (data[i].product.dummyPrice * data[i].quantity);
+        }
+        let discountAmount = totalAmount - paymentAmount;
+
+        let deliveryDate = Date.now() + (86400 * 1000 * 5);
+
+        const orderModel = new OrderModel({
+            products: orderProduct,
+            totalAmount,
+            discountAmount,
+            paymentAmount,
+            user: req.id,
+            fullName: userAddress.fullName,
+            phoneNo: userAddress.phoneNo,
+            alternativePhoneNo: userAddress.alternativePhoneNo,
+            state: userAddress.state,
+            city: userAddress.city,
+            address: userAddress.address,
+            pincode: userAddress.pincode,
+            addressType: userAddress.addressType,
+            date: Date.now(),
+            deliveryDate: new Date(deliveryDate),
+        });
+
+        await orderModel.save();
+
+        if (cod) {
+            orderModel.method = CASH_PAYMENT_METHOD;
+            orderModel.orderId = orderIdGenerate();
+            orderModel.status = COMPLETED_STATUS;
+            await orderModel.save({ validateBeforeSave: true });
+            await CartModel.deleteMany({ uid: orderModel.user });
+            return res.status(200).json({
+                statusCode: 200, message: "Order placed successfully", data: {
+                    orderId: orderModel._id
+                }
+            });
+        }
+
+        const order = await instance.orders.create({
+            amount: paymentAmount * 100,
+            currency: "INR",
+        });
+        orderModel.razorpayOrderId = order.id;
+        orderModel.orderId = orderIdGenerate();
+        orderModel.method = ONLINE_PAYMENT_METHOD;
+        await orderModel.save();
+
+        setTimeout(async () => {
+            const orderDelete = await OrderModel.findOneAndDelete({ _id: orderModel._id, status: { $eq: PENDING_STATUS } });
+        }, 1000 * 60 * 10);
+
+        res.status(200).json({
+            statusCode: 200,
+            success: true,
+            data: {
+                key: RAZORPAY_KEY_ID,
+                amount: paymentAmount * 100,
+                currency: "INR",
+                name: "Luxchono",
+                description: "Watch not just a time",
+                order_id: order.id,
+                image: WEBSITE_IMAGE_URL,
+                callback_url: RAZORPAY_CALLBACK_URL,
+                prefill: {
+                    name: req.user.username,
+                    email: req.user.email,
+                    contact: req.user.phoneNo || ''
+                },
+                notes: {
+                    address: userAddress.address
+                },
+                theme: {
+                    color: "#964315"
+                }
+            }
+        });
+    } catch (e) {
+        return next(new ApiError(400, e.message));
+    }
+}
+
 
 module.exports = { makeOrder, paymentOrder, paymentVerification, getOrder, getAllOrder, cancelOrder, orderPipeline };
