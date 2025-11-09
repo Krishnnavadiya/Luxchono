@@ -95,6 +95,27 @@ async function getAllCartProduct(req, res, next) {
     }
 }
 
+async function updateCartProduct(req, res, next) {
+    try {
+        const pid = req.params.pid;
+        const uid = req.id;
+        const { quantity } = req.body;
+        let updatedCart = await CartModel.findOneAndUpdate({ uid, pid }, { quantity });
+        if (updatedCart) {
+            let length = await CartModel.countDocuments({ uid });
+            return res.status(200).json({
+                statusCode: 200, success: true, message: "Cart update successfully", data: {
+                    length
+                }
+            });
+        } else {
+            return next(new ApiError(400, 'Cart is not found'));
+        }
+    } catch (e) {
+        return next(new ApiError(400, e.message));
+    }
+}
+
 
 
 module.exports = { addCart, getAllCartProduct, updateCartProduct, removeCart, getAllCartIds };
