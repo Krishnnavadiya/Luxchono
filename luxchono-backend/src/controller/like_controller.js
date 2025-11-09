@@ -37,36 +37,6 @@ async function addRemoveLike(req, res, next) {
     }
 }
 
-async function getAllLikeProduct(req, res, next) {
-    try {
-        const id = req.id;
-        const likeModels = await LikeModel.find({ uid: id }).select({ pid: true });
-        const ids = likeModels.map((e) => e.pid);
-        const likeProducts = await ProductModel.aggregate([
-            {
-                $match: {
-                    _id: {
-                        $in: ids
-                    }
-                }
-            },
-            ...productPipeline
-        ]).exec();
-        return res.status(200).json({ statusCode: 200, success: true, data: likeProducts });
-    } catch (e) {
-        return next(new ApiError(400, e.message));
-    }
-}
 
-async function getAllLikeIds(req, res, next) {
-    try {
-        const id = req.id;
-        const likeModels = await LikeModel.find({ uid: id }).select({ pid: true });
-        const ids = likeModels.map((e) => e.pid);
-        return res.status(200).json({ statusCode: 200, success: true, data: ids });
-    } catch (e) {
-        return next(new ApiError(400, e.message));
-    }
-}
 
 module.exports = { addRemoveLike, getAllLikeProduct, getAllLikeIds };
