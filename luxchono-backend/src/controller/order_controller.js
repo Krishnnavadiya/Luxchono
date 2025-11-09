@@ -360,6 +360,25 @@ async function getOrder(req, res, next) {
     }
 }
 
+async function getAllOrder(req, res, next) {
+    try {
+        const filter = {
+            user: req.user._id,
+            status: { $ne: PENDING_STATUS }
+        };
+        const orders = await OrderModel.aggregate([
+            {
+                $match: filter
+            },
+            ...orderPipeline,
+            { $sort: { createdAt: -1 } }
+        ], { allowDiskUse: true }).exec();
+        res.status(200).json({ statusCode: 200, success: true, data: orders });
+    } catch (e) {
+        return next(new ApiError(400, "Internal server error"));
+    }
+}
+
 
 
 module.exports = { makeOrder, paymentOrder, paymentVerification, getOrder, getAllOrder, cancelOrder, orderPipeline };
