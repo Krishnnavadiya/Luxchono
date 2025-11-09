@@ -379,6 +379,42 @@ async function getAllOrder(req, res, next) {
     }
 }
 
-
+async function cancelOrder(req, res, next) {
+    try {
+        const findOrder = await OrderModel.findOne({ _id: req.body.orderId, user: req.id }).populate("user");
+        if (!findOrder) {
+            return next(new ApiError(400, "Order is not found"));
+        }
+        if (findOrder.status !== COMPLETED_STATUS) {
+            return next(new ApiError(400, "You can not cancel the order"));
+        }
+        let filePath = path.join(__dirname, "../../public/user_order_cancel.html");
+        let htmlData = fs.readFileSync(filePath, "utf-8");
+        htmlData = htmlData.replace("${orderId}", findOrder.orderId);
+        htmlData = htmlData.replace("${redirectUrl}", FRONTEND_URL);
+        await transporter.sendMail({
+            to: findOrder.user.email,
+            subject: "Order Cancellation Confirmation",
+            html: htmlData,
+        });
+        findOrder.status = CANCELLED_STATUS;
+        findOrder.isCancelled = true;
+        findOrder.cancelDate = Date.now();
+        await findOrder.save();
+        const notification = new NotificationModel({
+            title: `Order Update: ${findOrder.status}`,
+            description: `Your order ${findOrder.orderId} has been ${findOrder.status}`,
+            type: PRIVATE_NOTIFICATION,
+            user: findOrder.user._id,
+            extra: {
+                order: findOrder._id
+            }
+        });
+        await notification.save({ validateBeforeSave: true });
+        res.status(200).json({ statusCode: 200, success: true, message: "Order cancel successfully" });
+    } catch (e) {
+        return next(new ApiError(400, "Internal server error"));
+    }
+}
 
 module.exports = { makeOrder, paymentOrder, paymentVerification, getOrder, getAllOrder, cancelOrder, orderPipeline };
