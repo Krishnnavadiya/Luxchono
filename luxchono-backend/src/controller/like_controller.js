@@ -58,6 +58,15 @@ async function getAllLikeProduct(req, res, next) {
     }
 }
 
-
+async function getAllLikeIds(req, res, next) {
+    try {
+        const id = req.id;
+        const likeModels = await LikeModel.find({ uid: id }).select({ pid: true });
+        const ids = likeModels.map((e) => e.pid);
+        return res.status(200).json({ statusCode: 200, success: true, data: ids });
+    } catch (e) {
+        return next(new ApiError(400, e.message));
+    }
+}
 
 module.exports = { addRemoveLike, getAllLikeProduct, getAllLikeIds };
