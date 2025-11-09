@@ -301,5 +301,36 @@ async function paymentOrder(req, res, next) {
     }
 }
 
+async function paymentVerification(req, res, next) {
+    const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
+    try {
+        const body = razorpay_order_id + "|" + razorpay_payment_id;
+        const generatedSignature = crypto.createHmac('sha256', RAZORPAY_KEY_SECRET)
+            .update(body.toString())
+            .digest('hex');
+
+        if (generatedSignature === razorpay_signature) {
+            const order = await OrderModel.findOne({ razorpayOrderId: razorpay_order_id });
+            if (!order) {
+                return res.redirect(`${REDIRECT_FRONTEND_URL}`);
+            }
+            order.paymentId = razorpay_payment_id;
+            order.status = COMPLETED_STATUS;
+            order.paymentStatus = PAID_STATUS;
+            await order.save();
+            const orderProducts = order.products;
+            await CartModel.deleteMany({ uid: order.user });
+            for (let e of orderProducts) {
+                await ProductModel.findByIdAndUpdate(e.product, { $inc: { stock: -e.quantity } });
+            }
+            return res.redirect(`${REDIRECT_FRONTEND_URL}?orderId=${order.razorpayOrderId}`);
+        }
+        return next(new ApiError(400, "Payment failed"));
+    } catch (e) {
+        return next(new ApiError(400, "Payment verification failed"));
+    }
+}
+
+
 
 module.exports = { makeOrder, paymentOrder, paymentVerification, getOrder, getAllOrder, cancelOrder, orderPipeline };
