@@ -153,6 +153,40 @@ async function getOrderProduct(pid, quantity) {
         productTotalAmount: product[0].price * quantity
     }
 }
+async function makeOrder(req, res, next) {
+    try {
+        const body = req.body;
+        let orderProducts = [];
+        for (let i = 0; i < body.length; i++) {
+            orderProducts.push(getOrderProduct(body[i].pid, body[i].quantity));
+        }
+        const data = await Promise.all(orderProducts);
+        for (let e of data) {
+            if (e.product.stock < e.quantity) {
+                return next(new ApiError(400, `${e.product.name} product is out of stock`))
+            }
+        }
+        let totalAmount = 0;
+        let paymentAmount = 0;
+        for (let i = 0; i < data.length; i++) {
+            paymentAmount += data[i].productTotalAmount;
+            totalAmount += (data[i].product.dummyPrice * data[i].quantity);
+        }
+        let discountAmount = totalAmount - paymentAmount;
+        let deliveryDate = Date.now() + (86400 * 1000 * 5);
+        res.status(200).json({
+            statusCode: 200, success: true, data: {
+                orderProducts: data,
+                totalAmount,
+                discountAmount,
+                paymentAmount,
+                deliveryDate: new Date(deliveryDate),
+            }
+        });
+    } catch (e) {
+        return next(new ApiError(400, e.message));
+    }
+}
 
 
 module.exports = { makeOrder, paymentOrder, paymentVerification, getOrder, getAllOrder, cancelOrder, orderPipeline };
