@@ -331,6 +331,35 @@ async function paymentVerification(req, res, next) {
     }
 }
 
+async function getOrder(req, res, next) {
+    try {
+        const { orderId } = req.query;
+        const filter = {
+            status: { $ne: PENDING_STATUS },
+        }
+        if (!orderId) {
+            return next(new ApiError(400, "Order id is required"));
+        }
+        if (!mongoose.isValidObjectId(orderId)) {
+            filter.razorpayOrderId = orderId
+        } else {
+            filter._id = new mongoose.Types.ObjectId(orderId)
+        }
+        const order = await OrderModel.aggregate([
+            {
+                $match: filter
+            },
+            ...orderPipeline
+        ], { allowDiskUse: true }).exec();
+        if (order.length === 0) {
+            return next(new ApiError(400, "Order is not found"));
+        }
+        res.status(200).json({ statusCode: 200, success: true, data: order[0] });
+    } catch (e) {
+        return next(new ApiError(400, "Payment verification failed"));
+    }
+}
+
 
 
 module.exports = { makeOrder, paymentOrder, paymentVerification, getOrder, getAllOrder, cancelOrder, orderPipeline };
