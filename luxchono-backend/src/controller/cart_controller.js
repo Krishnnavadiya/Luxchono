@@ -132,6 +132,15 @@ async function removeCart(req, res, next) {
     }
 }
 
-
+async function getAllCartIds(req, res, next) {
+    try {
+        const id = req.id;
+        const cartModels = await CartModel.find({ uid: id }).select({ pid: true });
+        const ids = cartModels.map((e) => e.pid);
+        return res.status(200).json({ statusCode: 200, success: true, data: ids });
+    } catch (e) {
+        return next(new ApiError(400, e.message));
+    }
+}
 
 module.exports = { addCart, getAllCartProduct, updateCartProduct, removeCart, getAllCartIds };
