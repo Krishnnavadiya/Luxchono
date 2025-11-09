@@ -129,6 +129,30 @@ const orderPipeline = [
     }
 ];
 
+async function getOrderProduct(pid, quantity) {
+    if (!mongoose.isValidObjectId(pid)) {
+        throw new Error("Id is not valid");
+    }
+    const product = await ProductModel.aggregate([
+        {
+            $match: {
+                _id: new mongoose.Types.ObjectId(pid),
+                isActive: true,
+            },
+        },
+        ...productPipeline
+    ]).exec();
+
+    if (product.length === 0) {
+        throw new Error("Product not exist");
+    }
+    return {
+        product: product[0],
+        quantity,
+        orderProductPrice: product[0].price,
+        productTotalAmount: product[0].price * quantity
+    }
+}
 
 
 module.exports = { makeOrder, paymentOrder, paymentVerification, getOrder, getAllOrder, cancelOrder, orderPipeline };
