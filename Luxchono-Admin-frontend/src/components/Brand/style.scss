@@ -1,0 +1,40 @@
+@import "../../constants/color";
+
+.brand_add_button {
+    text-transform: capitalize !important;
+    margin-top: 1rem !important;
+    margin-right: 1rem !important;
+}
+
+.BrandField {
+    width: 100%;
+    .MuiInputBase-root {
+        border-radius: 12px !important;
+        height: 45px;
+    }
+}
+
+.productheaderbtn1 {
+    color: $font_color;
+    border-color: $font_color;
+    border-radius: 8px;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 14px;
+    height: 43px;
+}
+
+.productheaderbtn2 {
+    color: $white;
+    border-radius: 8px;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 14px;
+    height: 43px;
+    width: auto !important;
+   background-color: $delete !important;
+}
+
+.addbtn {
+    background-color: $primary !important;
+}
