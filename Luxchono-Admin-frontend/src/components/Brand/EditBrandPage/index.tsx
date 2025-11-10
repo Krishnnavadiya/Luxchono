@@ -80,7 +80,51 @@ export default function EditBrandPage() {
         document.getElementById("fileIconInput")?.click()
     };
 
-    
+    const EditBrands = useFormik({
+        initialValues: {
+            name: '',
+            image: '',
+            icon: "",
+        },
+
+        validationSchema: Yup.object().shape({
+            name: Yup.string().trim().required(STRING.BRAND_NAME_REQUIRED).min(3, STRING.BRAND_NAME_FORMAT),
+            image: Yup.mixed().required(STRING.BRAND_NAME_IMAGE).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+                if (value) {
+                    const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith(".png") || typeof value === 'string' && value.endsWith(".jpeg") ||
+                        typeof value === 'string' && value.endsWith(".jpg") || typeof value === 'string' && value.endsWith(".svg");
+                    return acceptedFormats || accepteDefaltFormats;
+                }
+                return true;
+            }),
+            icon: Yup.mixed().required(STRING.BRAND_ICON_REQUIRED).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+                if (value) {
+                    const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+                    const accepteDefaltFormats = typeof value === 'string' && value.endsWith(".png") || typeof value === 'string' && value.endsWith(".jpeg") ||
+                        typeof value === 'string' && value.endsWith(".jpg") || typeof value === 'string' && value.endsWith(".svg");
+                    return acceptedFormats || accepteDefaltFormats;
+                }
+                return true;
+            }),
+        }),
+
+        onSubmit: async (values: any) => {
+            values.id = BrandId;
+            const response: any = await EditBrand(values);
+            const { message, statusCode } = response?.data;
+            if (statusCode === 200) {
+                toast.success(message);
+                navigate("/brand")
+            } else {
+                toast.error(message);
+            }
+        },
+    });
+
+    const Category = () => {
+        navigate("/brand")
+    }
 
     return (
         <>
