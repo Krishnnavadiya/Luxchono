@@ -61,7 +61,43 @@ export default function AddOfferPage() {
     }, [BrandData, selectedBrandValues]);
 
     //form data
-   
+    const AddOffer = useFormik({
+        initialValues: {
+            image: '',
+            name: '',
+            description: '',
+            percentage: '',
+            startDate: '',
+            endDate: '',
+            product: ""
+        },
+        validationSchema: Yup.object().shape({
+            name: Yup.string().trim().required(STRING.OFFER_OFFERNAME_REQUIRED).min(3, STRING.OFFER_OFFERNAME_FORMATE),
+            percentage: Yup.string().trim().required(STRING.OFFER_DISOUNT_REQUIRED),
+            product: Yup.string().required(STRING.OFFER_PRODUCTS_REQUIRED),
+            image: Yup.mixed().required(STRING.OFFER_IMAGE_REQUIRED)
+                .test('fileFormat', STRING.IMAGE_FORMATES, (value: any) => {
+                    if (value) {
+                        const acceptedFormats = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
+                        return acceptedFormats;
+                    }
+                    return true;
+                }),
+        }),
+
+        onSubmit: async (values: any) => {
+            console.log(values, "valuessss")
+            const response: any = await AddOffers(values);
+            console.log(response, "response")
+            const { message, statusCode } = response?.data;
+            if (statusCode === 200) {
+                toast.success(message);
+                navigate('/offer');
+            } else {
+                toast.error(message);
+            }
+        },
+    });
 
     //image uplaod 
     const handleFileChange = (e: any) => {

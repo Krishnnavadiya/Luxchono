@@ -100,6 +100,38 @@ export default function OfferPage() {
         };
     }
 
+    useEffect(() => {
+        const OfferDatas = OfferData?.data;
+        setOfferDatas(OfferDatas)
+        console.log(OfferDatas, "OfferDatasOfferDatas")
+        const rowise = OfferDatas?.map((item: any) => {
+
+            const defaultProducts = {
+                label: item.product.name,
+                value: item.product._id,
+            };
+
+            console.log(item, "defaultProducts")
+            return createData(
+                item._id,
+                item.name,
+                item.product.offer,
+                item.image,
+                item.description,
+                item.product._id,
+                item.startDate,
+                item.endDate,
+                defaultProducts,
+                item.product.name
+
+            );
+        });
+        setRows(rowise)
+    }, [OfferData])
+
+    useEffect(() => {
+        refetch()
+    }, [search, refetch])
 
 
 
