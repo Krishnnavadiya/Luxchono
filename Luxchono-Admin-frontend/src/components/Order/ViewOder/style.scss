@@ -1,0 +1,283 @@
+@import "../../../constants/color";
+
+.order_div {
+    .MuiInputBase-root {
+        border-radius: 10px !important;
+        height: 45px;
+    }
+
+    .order_heading {
+        font-weight: 600;
+    }
+
+    .bag_icon {
+        font-size: 30px;
+    }
+
+    .mainac {
+        box-shadow: $paper_boxshadow 0px 1px 4px !important;
+
+        .MuiAccordionSummary-expandIconWrapper {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .accordion_heading {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+
+            .ordern_titel {
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            .orderv_titel {
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+            .order_date {
+                font-weight: 600;
+                font-size: 15px;
+            }
+
+        }
+
+        .accordioninfo {
+            .email_title {
+                font-weight: 600;
+                font-size: 15px;
+            }
+
+            .dd_title {
+                font-weight: 600;
+                font-size: 15.5px;
+            }
+
+            .address_name {
+
+                font-size: 15px;
+            }
+
+            .address_phone {
+
+                font-size: 15px;
+            }
+
+            .address_line {
+
+                font-size: 15px;
+            }
+        }
+
+
+        .pdf_download {
+            background-color: $primary;
+            color: $white;
+            font-weight: 600;
+            border-radius: 5px;
+            padding: 0.3rem;
+            height: 2rem;
+            font-size: 13px;
+        }
+    }
+
+    .oinfo_div {
+        .order_desc_heading {
+            font-weight: 600;
+        }
+
+        .order_img {
+            width: 90px;
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .order_name {
+            font-weight: 600;
+            font-size: 16px;
+
+        }
+
+        .order_price {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .order_quantity {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .order_time {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .more_icon {
+            font-size: 30px;
+        }
+
+
+    }
+
+    .not_found_div {
+        .not_found_icon {
+            font-size: 35px !important;
+        }
+
+        .not_found_heading {
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .not_found_link {
+            font-size: 16px;
+        }
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .order_div {
+
+        .paperboxshadow {
+            min-height: 9rem !important;
+        }
+
+        .order_heading {
+            font-size: 19px !important;
+        }
+
+        .bag_icon {
+            font-size: 22px !important;
+        }
+
+        .order_desc_heading {
+            font-size: 16px !important;
+        }
+
+        .mainac {
+
+            .accordion_heading {
+
+                .ordern_titel {
+                    font-size: 14px !important;
+                }
+
+                .orderv_titel {
+                    font-size: 14px !important;
+                }
+
+                .order_date {
+                    font-size: 14px !important;
+                }
+            }
+
+            .dd_title {
+                font-size: 14px !important;
+            }
+
+            .address_name {
+                font-size: 14px !important;
+            }
+
+            .address_phone {
+                font-size: 14px !important;
+            }
+
+            .address_line {
+                font-size: 14px !important;
+            }
+
+            .pdf_download {
+                height: 1.8rem !important;
+                font-size: 12px !important;
+            }
+        }
+
+
+        .not_found_div {
+            .not_found_icon {
+                font-size: 25px !important;
+            }
+
+            .not_found_heading {
+                font-size: 17px !important;
+            }
+
+            .not_found_link {
+                font-size: 13px !important;
+            }
+        }
+
+
+        .order_img {
+            width: 70px !important;
+            height: 90px !important;
+        }
+
+        .order_name {
+            font-size: 17px !important;
+        }
+
+        .order_price {
+            font-size: 15px !important;
+        }
+
+        .order_quantity {
+            font-size: 14px !important;
+        }
+
+        .order_time {
+            font-size: 13px !important;
+        }
+
+        .more_icon {
+            font-size: 25px !important;
+
+        }
+    }
+
+
+}
+
+
+
+@media (max-width: 450px) {
+
+    .order_div {
+        .paperboxshadow {
+            min-height: 9rem !important;
+        }
+
+        .order_img {
+            width: 60px !important;
+            height: 80px !important;
+        }
+
+        .order_name {
+            font-size: 14px !important;
+        }
+
+        .order_price {
+            font-size: 14px !important;
+        }
+
+        .order_quantity {
+            font-size: 13px !important;
+        }
+
+        .order_time {
+            font-size: 13px !important;
+        }
+
+        .more_icon {
+            font-size: 20px !important;
+
+        }
+    }
+}
