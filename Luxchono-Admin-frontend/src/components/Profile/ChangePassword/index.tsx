@@ -25,7 +25,33 @@ export default function ChangePassword() {
         setShowPasswordNew((prev) => !prev);
     };
 
-    
+    const ChangePasswords = useFormik<any>({
+        initialValues: {
+            password: '',
+            newPassword: '',
+        },
+        validationSchema: Yup.object().shape({
+            password: Yup.string().required("Password is required")
+                .matches(REGEX.STORAGE, STRING.PAASWORD_STORANGE),
+            newPassword: Yup.string().required("New Password is required")
+                .matches(REGEX.STORAGE, STRING.PAASWORD_STORANGE),
+        }),
+        onSubmit: async (values, { resetForm }) => {
+            try {
+                const response: any = await ChangePassword(values);
+
+                const { statusCode, message } = response?.data;
+                if (statusCode === 200) {
+                    toast.success(message);
+                    resetForm();
+                } else {
+                    toast.error(message);
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+    });
     return (
 
         <div style={{ display: "flex", width: "100%", justifyContent: "center" }} >
