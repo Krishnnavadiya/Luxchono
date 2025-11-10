@@ -44,7 +44,22 @@ export default function VerifiedAdmin() {
         setOpenConfirmation(false);
     };
 
-  
+    const handleVerify = async () => {
+        try {
+            const response: any = await AdminVerified(AdminId);
+
+            console.log(response, "responseee")
+            const { message, statusCode } = response?.data;
+            if (statusCode === 200) {
+                toast.success(message);
+                handleCloseConfirmation();
+            } else {
+                toast.error(message);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className='mains_div'>
