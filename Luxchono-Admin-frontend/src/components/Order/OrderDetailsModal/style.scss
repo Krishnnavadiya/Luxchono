@@ -1,0 +1,71 @@
+@import "../../../constants/color";
+
+.order_details {
+
+    .MuiDialog-paper {
+        background-color: $white !important;
+        color: white !important;
+        border: 1px solid #A9A9A9 !important;
+        width: 400px;
+    }
+
+    .MuiDialogContent-root {
+        padding: 18px !important;
+        padding-top: 10px !important;
+        padding-bottom: 25px !important;
+    }
+
+    .logout_icon {
+        font-size: 3rem;
+        margin-left: 0.2em;
+    }
+
+    .order_heading {
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .close_icon {
+        font-size: 22px;
+    }
+
+
+    .order_status {
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    .cancel_btn {
+        color: $white !important;
+        height: 2.6rem;
+        font-weight: 600 !important;
+        text-transform: capitalize !important;
+        font-size: 1rem !important;
+        border-radius: 10px !important;
+        cursor: pointer;
+    }
+
+
+
+
+    @media (max-width: 500px) {
+
+        .cancel_btn {
+            height: 2.4rem;
+            font-size: 0.8rem !important;
+        }
+
+
+        .MuiDialogContent-root {
+            padding: 14px 12px !important;
+        }
+
+
+        .remove_item_title {
+            font-size: 18px !important;
+        }
+
+
+    }
+
+}
