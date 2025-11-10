@@ -1,0 +1,22 @@
+@import "../../../constants/color";
+
+
+.appbar_search {
+    height: 43px;
+    width: 300px;
+    background-color: $background_color;
+    .appbar_search_button {
+        height: 44px;
+        box-shadow: none;
+        border-radius: 0px 9px 9px 0px;
+        &:hover {
+            background-color: $primary;
+        }
+    }
+    .appbar_search_icon {
+        color: $white ;
+    }
+    .MuiInputBase-input {
+        padding-left: 1rem !important;
+    }
+}
