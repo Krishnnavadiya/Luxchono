@@ -28,7 +28,38 @@ export default function ResetPassword() {
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
     };
-   
+    const ResetPasswords = useFormik<ResetFormValues>({
+        initialValues: {
+            password: '',
+            confirmPassword: '',
+        },
+        validationSchema: Yup.object().shape({
+            password: Yup.string().required(STRING.RESET_NEW_REQUIRED)
+            .matches(REGEX.STORAGE, STRING.PAASWORD_STORANGE),
+            confirmPassword: Yup.string()
+                .required(STRING.RESET_CONFIRM_REQUIRED)
+                .oneOf([Yup.ref('password')], STRING.RESET_MATCH_FORMATE),
+        }),
+        onSubmit: async (values) => {
+            try {
+                const body = {
+                    newPassword: values?.confirmPassword,
+                    id: id
+                };
+                console.log(body, "bodybody")
+                const response: any = await ResetPassword(body);
+                const { statusCode, message } = response?.data;
+                if (statusCode === 200) {
+                    toast.success(message);
+                    navigate('/login');
+                } else {
+                    toast.error(message);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    });
 
     return (
         <div className='flex items-center justify-center  h-[100vh] resetcontainer'>

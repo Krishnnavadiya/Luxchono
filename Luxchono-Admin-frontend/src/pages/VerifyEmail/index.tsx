@@ -14,7 +14,10 @@ export default function VerifyEmail() {
     const navigate = useNavigate();
     // Access individual query parameters
     const id = queryParams.get('id');
-    
+    const { data, isFetching } = useVerifyEmailQuery<any>(id);
+    const Login = () => {
+        navigate("/login")
+    }
     return (
         <div>
             <div className='navbar'>
