@@ -79,6 +79,25 @@ export default function ShowAdmin() {
         };
     }
 
+    useEffect(() => {
+        const adminData = (AdminData as any)?.data; // Type assertion to any
+        setAdminData(adminData);
+        const rowise = adminData?.map((item: any) => {
+            return createData(
+                item._id,
+                item.username,
+                item.email,
+                item.isAdminVerified
+            );
+        });
+        setRows(rowise);
+    }, [AdminData]);
+
+
+
+    useEffect(() => {
+        refetch()
+    }, [search, refetch])
 
     //delete single category
 
