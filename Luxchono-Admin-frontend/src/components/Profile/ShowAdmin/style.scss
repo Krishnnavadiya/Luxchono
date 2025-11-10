@@ -1,0 +1,20 @@
+@import "../../../constants/color";
+
+.AdminContainer {
+    .MuiInputBase-root {
+        border-radius: 12px !important;
+        height: 45px;
+    }
+
+    padding-left: 2rem !important;
+
+    .productheaderbtn1 {
+        color: $font_color;
+        border-color: $font_color;
+        border-radius: 8px;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 14px;
+        height: 43px;
+    }
+}
