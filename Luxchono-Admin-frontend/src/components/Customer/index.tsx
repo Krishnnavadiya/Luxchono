@@ -68,7 +68,23 @@ export default function CustomerPage() {
         };
     }
 
-    
+    useEffect(() => {
+        const CustomerDatas = CustomerData?.data;
+        setCustomerDatas(CustomerDatas)
+        const rowise = CustomerDatas?.map((item: any) => {
+            return createData(
+                item._id,
+                item.username,
+                item.email,
+                item.phoneNo,
+            );
+        });
+        setRows(rowise)
+    }, [CustomerData])
+
+    useEffect(() => {
+        refetch()
+    }, [search, refetch])
 
 
     const handleCvsExport = () => {
