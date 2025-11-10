@@ -1,0 +1,64 @@
+@import "../../constants/color";
+
+.navbar {
+    background-color: #1b120d;
+    width: 100%;
+    height: 10%;
+    padding: 1rem 0rem 1rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .navbar_heading {
+        color: #E9CC97;
+        font-size: 30px;
+    }
+}
+
+.verify_icon {
+    font-size: 8rem !important;
+    color: $primary;
+}
+
+.div_label {
+    font-size: 22px;
+}
+
+.verifybtton {
+    color: $white !important;
+    margin-top: 1rem !important;
+    height: 2.9rem;
+    font-weight: 700 !important;
+    text-transform: capitalize !important;
+    font-size: 1rem !important;
+    border-radius: 12px !important;
+    width: 16rem;
+    font-size: 16px !important;
+}
+
+
+@media (max-width: 700px) {
+    .LoginImg {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .navbar_heading {
+        font-size: 24px !important;
+    }
+
+    .verify_icon {
+        font-size: 7rem !important;
+    }
+
+    .div_label {
+        font-size: 20px !important;
+    }
+
+    .verifybtton {
+        height: 2.3rem;
+        width: 12rem;
+        font-size: 14px !important;
+    }
+
+}
