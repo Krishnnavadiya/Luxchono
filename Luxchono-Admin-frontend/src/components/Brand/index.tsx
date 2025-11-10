@@ -79,7 +79,23 @@ export default function BrandPage() {
         };
     }
 
-   
+    useEffect(() => {
+        const BrandDatas = BrandData?.data;
+        setBrandDatas(BrandDatas)
+        const rowise = BrandDatas?.map((item: any) => {
+            return createData(
+                item._id,
+                item.name,
+                item.image,
+                item.icon
+            );
+        });
+        setRows(rowise)
+    }, [BrandData])
+
+    useEffect(() => {
+        refetch()
+    }, [search, refetch])
 
 
     const handleDelete = async () => {
