@@ -1,0 +1,21 @@
+
+@import "../../../constants/color";
+.email_dialog{
+    .MuiDialog-paper {
+        border-radius: 20px !important;
+        width: 500px;    
+    } 
+}
+
+
+.VerifyButton{
+    margin-top: 1rem !important;
+    background-color: $primary;
+    border-color: $primary;
+    border: 2px solid $primary;
+    color: $white;
+    text-transform: capitalize !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+
+}
