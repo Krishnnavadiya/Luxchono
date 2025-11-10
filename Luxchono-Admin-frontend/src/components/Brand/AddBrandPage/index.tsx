@@ -58,7 +58,46 @@ export default function AddBrandPage() {
         document.getElementById("fileIconInput")?.click()
     };
 
-  
+    const AddBrand = useFormik({
+        initialValues: {
+            name: '',
+            image: '',
+            icon: "",
+        },
+        validationSchema: Yup.object().shape({
+            name: Yup.string().trim().required(STRING.BRAND_NAME_REQUIRED).min(3, STRING.BRAND_NAME_FORMAT),
+            image: Yup.mixed().required(STRING.BRAND_NAME_IMAGE)
+                .test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+                    if (value) {
+                        const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+                        return acceptedFormats;
+                    }
+                    return true;
+                }),
+            icon: Yup.mixed().required(STRING.BRAND_ICON_REQUIRED).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+                if (value) {
+                    const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+                    return acceptedFormats;
+                }
+                return true;
+            }),
+        }),
+
+        onSubmit: async (values: any) => {
+            const response: any = await AddBrandData(values);
+            const { message, statusCode } = response?.data;
+            if (statusCode === 200) {
+                toast.success(message);
+                navigate("/brand")
+            } else {
+                toast.error(message);
+            }
+        },
+    });
+
+    const Brand = () => {
+        navigate("/brand")
+    }
 
     return (
         <>
