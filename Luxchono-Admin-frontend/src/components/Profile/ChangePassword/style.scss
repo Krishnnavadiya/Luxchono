@@ -1,0 +1,45 @@
+@import "../../../constants/color";
+
+.changemain_div {
+
+    .MuiInputBase-root {
+        border-radius: 12px !important;
+        height: 48px;
+    }
+
+    margin: 1rem;
+    margin-left: 2rem;
+    display: block;
+    padding: 1.5rem;
+    width: 35rem !important;
+    min-height: 22rem !important;
+
+
+    .main_heding {
+        font-weight: 600;
+        font-size: 20px;
+    }
+
+    .main_conatine {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .filed_div {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .change_password {
+            color: $white !important;
+            height: 2.5rem;
+            font-weight: 700 !important;
+            text-transform: capitalize !important;
+            font-size: 1rem !important;
+            border-radius: 12px !important;
+
+        }
+    }
+}
