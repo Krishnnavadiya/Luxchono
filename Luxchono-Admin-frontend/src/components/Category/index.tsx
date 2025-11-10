@@ -75,7 +75,23 @@ export default function CategoryPage() {
         };
     }
 
-  
+    useEffect(() => {
+        const categoryData = CategoryData?.data;
+        setCategoryData(categoryData)
+        const rowise = categoryData?.map((item: any) => {
+            return createData(
+                item._id,
+                item.name,
+                item.image,
+                item.icon
+            );
+        });
+        setRows(rowise)
+    }, [CategoryData])
+
+    useEffect(() => {
+        refetch()
+    }, [search, refetch])
 
     const handleDelete = async () => {
         const response: any = await DeleteCategory({ id: selectedDeleteRows })

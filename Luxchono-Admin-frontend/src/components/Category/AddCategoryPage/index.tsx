@@ -60,7 +60,50 @@ export default function AddCategoryPage() {
     document.getElementById("fileIconInput")?.click()
   };
 
-  
+  const AddCategory = useFormik({
+    initialValues: {
+      name: '',
+      image: '',
+      icon: "",
+    },
+
+    validationSchema: Yup.object().shape({
+      name: Yup.string().trim().required(STRING.CATEGORY_NAME_REQUIRED).min(3, STRING.CATEGORY_NAME_FORMAT),
+      image: Yup.mixed().required(STRING.CATEGORY_NAME_IMAGE)
+        .test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+          if (value) {
+            const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+            return acceptedFormats;
+          }
+          return true;
+        }),
+
+
+      icon: Yup.mixed().required(STRING.CATEGORY_ICON_REQUIRED).test("fileFormat", STRING.IMAGE_FORMATES, (value: any) => {
+        if (value) {
+          const acceptedFormats = ["image/svg+xml", "image/png", "image/jpeg", "image/jpg"].includes(value.type);
+          return acceptedFormats;
+        }
+        return true;
+      }),
+
+    }),
+
+    onSubmit: async (values: any) => {
+      const response: any = await AddCategoryData(values);
+      const { message, statusCode } = response?.data;
+      if (statusCode === 200) {
+        toast.success(message);
+        navigate("/category")
+      } else {
+        toast.error(message);
+      }
+    },
+  });
+
+  const Category = () => {
+    navigate("/category")
+  }
 
   return (
     <>
