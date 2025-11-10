@@ -34,7 +34,11 @@ export default function Drawers() {
         setOpenConfirmation(false);
     };
 
-  
+    const handleLogout = () => {
+        localStorage.removeItem("lw-token")
+        localStorage.removeItem("lw-username")
+        navigate('/login');
+    };
 
     return (
         <>
