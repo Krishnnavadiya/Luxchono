@@ -1,0 +1,61 @@
+@import "../../constants/color";
+
+.products_div {
+    .MuiInputBase-root {
+        border-radius: 9px !important;
+    }
+
+    .heading_div {
+        padding: 1rem 1rem 0.5rem 1rem;
+
+        .search_icon{
+            font-size: 30px;
+        }
+    }
+
+    .search_div {
+        padding: 00 1rem 1rem 1rem;
+
+        .filter_icon {
+            font-size: 30px !important;
+        }
+        .filter_btn {
+            height: 44px;
+            color: $primary !important;
+            text-transform: capitalize;
+            font-size: 16px;
+           font-weight: 600;
+        }
+    }
+
+    .products_heading {
+        font-size: 25px !important;
+        font-weight: 700;
+    }
+
+    //products
+
+   
+
+    .not_found {
+        font-weight: 600;
+        font-size: 19px;
+    }
+
+    .not_icon {
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 700px) {
+    .not_found {
+
+        font-size: 15px !important;
+    }
+
+    .not_icon {
+        font-size: 25px !important;
+    }
+
+
+}
