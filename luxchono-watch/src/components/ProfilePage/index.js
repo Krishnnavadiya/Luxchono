@@ -30,7 +30,18 @@ export default function ProfilePage() {
 
   const [profileData, setProfile] = useState();
 
- 
+  useEffect(() => {
+    actions.loder.setLoading(isLoading);
+    setProfile(data?.data);
+    profile.setFieldValue("email", data?.data?.email || "");
+    profile.setFieldValue("phoneNo", data?.data?.phoneNo || "");
+    profile.setFieldValue("username", data?.data?.username || "");
+    actions.loder.setLoading(isLoading);
+  }, [data]);
+
+  const goToOrder = () => {
+    navigate("/order");
+  };
 
   const [EditProfile, { isLoading: profileEditLoading }] =
     useEditProfileMutation();
