@@ -1,0 +1,56 @@
+@import "../../constants/color";
+
+.popular_div {
+  padding: 1rem 3rem 1rem 3rem;
+
+  .popular_span {
+    font-weight: 800;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 23px;
+  }
+
+  .popular_span2 {
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 23px;
+  }
+}
+
+.featur_div {
+  padding: 1rem 3rem 1rem 3rem;
+
+  .featur_span {
+    font-weight: 800;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 23px;
+  }
+
+  .featur_span2 {
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 23px;
+  }
+}
+
+.official_div {
+  padding: 1rem 3rem 1rem 3rem;
+}
+
+.paperboxshadow {
+  box-shadow: $paper_boxshadow 0px 1px 4px !important;
+}
+
+@media (max-width: 700px) {
+  .popular_div {
+    display: block !important;
+  }
+
+  .featur_div {
+    display: block !important;
+  }
+
+  .view_div {
+    margin-top: 0.4rem;
+  }
+
+}
