@@ -39,6 +39,40 @@ export default function HomePage() {
   const [featuredProductData, setFeaturedProductData] = useState([]);
   const [brandData, setBrandData] = useState([]);
 
+  useEffect(() => {
+    actions.loder.setLoading(
+      PopularProductFetching &&
+        FeaturedProductFetching &&
+        likeProductFetching &&
+        brandFetching
+    );
+    setPopularProductData(PopularProductApiData?.data);
+    setFeaturedProductData(FeaturedProductApiData?.data);
+    setBrandData(brandApiData?.data);
+
+    actions.loder.setLoading(
+      PopularProductFetching &&
+        FeaturedProductFetching &&
+        likeProductFetching &&
+        brandFetching
+    );
+  }, [PopularProductApiData, FeaturedProductApiData, brandApiData]);
+
+  const navigate = useNavigate();
+  const images = [
+    {
+      url: "https://res.cloudinary.com/dshmvvmur/image/upload/v1710781338/luxchono/mhfyi9z3oc74gkylxlzj.png",
+    },
+    {
+      url: "https://res.cloudinary.com/dshmvvmur/image/upload/v1710781481/luxchono/spmi5pqaseeuzq2y53dy.png",
+    },
+    {
+      url: "https://res.cloudinary.com/dshmvvmur/image/upload/v1710953890/luxchono/yrejh5jahi47il3uxmpn.jpg",
+    },
+    {
+      url: "https://res.cloudinary.com/dshmvvmur/image/upload/v1710954090/luxchono/uj571mrkxyfebaaf9hih.jpg",
+    },
+  ];
 
   const partnersImages = [
     {
