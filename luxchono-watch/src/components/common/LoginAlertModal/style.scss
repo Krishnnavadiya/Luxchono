@@ -1,0 +1,72 @@
+@import "../../../constants/color";
+
+.login_alert {
+
+    .MuiDialog-paper {
+        background-color: $white !important;
+        color: white !important;
+        border: 1px solid #A9A9A9 !important;
+        width: 360px;
+        border-radius: 10px !important;
+
+    }
+
+    .MuiDialogContent-root {
+        height: 150px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login_icon {
+        font-size: 35px !important;
+    }
+
+    .logout_icon {
+        font-size: 3rem;
+        margin-left: 0.2em;
+    }
+
+    .btns {
+
+        .cancel_btn {
+
+            color: $white !important;
+            height: 2.5rem;
+            font-weight: 600 !important;
+            text-transform: capitalize !important;
+            font-size: 1rem !important;
+            border-radius: 10px !important;
+            cursor: pointer;
+            width: 100% !important;
+
+        }
+    }
+
+
+    @media (max-width: 500px) {
+
+        .login_icon {
+            font-size: 27px !important;
+        }
+
+        .login_alert_title {
+            font-size: 17px !important;
+        }
+
+
+        .btns {
+            .cancel_btn {
+                height: 2.2rem;
+                font-size: 0.8rem !important;
+                width: 5rem;
+            }
+        }
+
+        .MuiDialogContent-root {
+            padding: 14px 12px !important;
+        }
+
+    }
+
+}
