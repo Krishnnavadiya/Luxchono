@@ -1,0 +1,42 @@
+@import "../../constants/color";
+
+.footer_grid {
+    .MuiOutlinedInput-notchedOutline {
+        border-color: $light_text !important;
+    }
+
+    .MuiInputLabel-root {
+        color: $light_text !important;
+        font-size: 18px !important;
+    }
+
+    .MuiInputBase-input {
+        color: $light_text !important;
+        font-size: 18px !important;
+        border-radius: 30px !important;
+        height: 12px !important;
+
+    }
+
+    .MuiFormHelperText-root {
+        color: $light_text !important;
+        font-weight: 700 !important;
+        font-size: 12px !important;
+    }
+
+    .emailButton {
+        color: $white !important;
+        height: 2.8rem !important;
+        font-weight: 700 !important;
+        text-transform: capitalize !important;
+        font-size: 1rem !important;
+        border-radius: 5px !important;
+        border-color: $secondary_light !important;
+        width: 20px !important;
+    }
+
+    .li_underline:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
