@@ -1,0 +1,63 @@
+@import "../../../constants/color";
+
+.orderConform {
+
+    .MuiDialog-paper {
+        background-color: $white !important;
+        color: white !important;
+        border: 1px solid #A9A9A9 !important;
+        width: 500px;
+    }
+
+    .conform_icon {
+        font-size: 50px;
+    }
+
+    .conform_heading {
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    .conform_dec {
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+    .conform_date{
+        font-size: 17px;
+        font-weight: 600;
+    }
+
+    .conform_link{
+         font-size: 19px;
+        font-weight: 600;
+    }
+
+
+    @media (max-width: 700px) {
+        .conform_icon {
+            font-size: 40px !important;
+        }
+    
+        .conform_heading {
+            font-size: 20px !important;
+           
+        }
+    
+        .conform_dec {
+            font-size: 15px !important;
+            
+        }
+    
+        .conform_date{
+            font-size: 15px !important;
+           
+        }
+    
+        .conform_link{
+             font-size: 17px !important;
+           
+        }
+      }
+
+}
