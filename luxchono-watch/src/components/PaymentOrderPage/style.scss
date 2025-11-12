@@ -1,0 +1,127 @@
+@import "../../constants/color";
+
+.paymentOrder {
+
+
+
+    .conform_icon {
+        font-size: 100px;
+    }
+
+    .order_idt {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .order_idi {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .conform_heading {
+        font-size: 23px;
+        font-weight: 600;
+    }
+
+    .conform_dec {
+        font-size: 19px;
+        font-weight: 500;
+    }
+
+    .conform_date {
+        font-size: 19px;
+        font-weight: 600;
+    }
+
+    .conform_link {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .pdf_download {
+        background-color: $primary;
+        color: $white;
+        font-weight: 600;
+        border-radius: 5px;
+        padding: 0.5rem;
+        height: 2.4rem;
+        font-size: 16px;
+
+    }
+
+    .payment_error_div{
+        .error_title{
+            font-weight: 600;
+            font-size: 19px;
+        }
+
+        .error_desc{
+            font-size: 17px;
+        }
+
+        .error_icon{
+            font-size: 25px !important;
+        }
+    }
+
+
+    @media (max-width: 700px) {
+        .conform_icon {
+            font-size: 50px !important;
+        }
+
+        .order_idt {
+            font-size: 16px;
+
+        }
+
+        .order_idi {
+            font-size: 16px;
+
+        }
+
+
+        .conform_heading {
+            font-size: 20px !important;
+
+        }
+
+        .conform_dec {
+            font-size: 15px !important;
+
+        }
+
+        .conform_date {
+            font-size: 15px !important;
+
+        }
+
+        .conform_link {
+            font-size: 17px !important;
+
+        }
+
+        .pdf_download {
+            padding: 0.4rem !important;
+            height: 2.2rem !important;
+            font-size: 14px !important;
+
+        }
+
+        .payment_error_div{
+            .error_title{
+
+                font-size: 17px !important;
+            }
+    
+            .error_desc{
+                font-size: 15px !important;
+            }
+    
+            .error_icon{
+                font-size: 23px !important;
+            }
+        }
+    }
+
+}

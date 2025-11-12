@@ -1,0 +1,94 @@
+@import "../../../constants/color";
+
+.add_quantity {
+
+    .MuiDialog-paper {
+        background-color: $white !important;
+        color: white !important;
+        border: 1px solid #A9A9A9 !important;
+        width: 300px;
+    }
+
+    .MuiDialogContent-root {
+        padding-top: 00px !important;
+
+    }
+
+    .close_icon {
+        cursor: pointer;
+        font-size: 22px !important;
+
+    }
+
+    .less_btn {
+
+        height: 2.7rem;
+        font-weight: 600 !important;
+        text-transform: capitalize !important;
+        font-size: 1.5rem !important;
+        border-radius: 10px !important;
+        cursor: pointer !important;
+        width: 6rem;
+    }
+
+    .add_btn {
+
+        height: 2.7rem;
+        font-weight: 600 !important;
+        text-transform: capitalize !important;
+        font-size: 1.5rem !important;
+        border-radius: 10px !important;
+        cursor: pointer;
+        width: 6rem;
+    }
+
+
+    .addquantity_btn {
+        color: $white !important;
+        height: 2.8rem;
+        font-weight: 600 !important;
+        text-transform: capitalize !important;
+        font-size: 1rem !important;
+        border-radius: 10px !important;
+        cursor: pointer;
+        width: 15.6rem;
+    }
+
+    @media (max-width: 500px) {
+        .addquantity_btn {
+            height: 2.4rem;
+            font-size: 0.8rem !important;
+            width: 12rem;
+        }
+
+        .close_icon {
+            font-size: 18px !important;
+        }
+
+        .less_btn {
+            height: 2.5rem;
+            font-size: 1rem !important;
+            width: 5rem;
+        }
+
+        .add_btn {
+            height: 2.5rem;
+            font-size: 1rem !important;
+            width: 5rem;
+        }
+
+        .MuiDialogContent-root {
+            padding: 00px 00px 14px 00px !important;
+
+
+
+        }
+
+        .addquantity_title {
+            font-size: 18px !important;
+        }
+
+
+    }
+
+}
