@@ -15,7 +15,27 @@ import { useForgotPasswordMutation } from '../../api/Login';
 
 export default function ForgotPassword() {
     const [ForgotPassword, { isLoading }] = useForgotPasswordMutation();
-  
+    const ForgotPasswords = useFormik({
+        initialValues: {
+            email: '',
+        },
+        validationSchema: Yup.object().shape({
+            email: Yup.string().required(STRING.LOGIN_EMAIL_REQUIRED).matches(REGEX.EMAIL, STRING.LOGIN_EMAIL_FORMAT),
+        }),
+        onSubmit: async (values) => {
+            try {
+                const response = await ForgotPassword(values);
+                const { statusCode, message } = response?.data;
+                if (statusCode === 200) {
+                    toast.success(message);
+                } else {
+                    toast.error(message);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    });
     return (
         <div className='flex items-center justify-center  h-[100vh] fordatecontainer'>
             <Paper className='!rounded-[40px] w-[1080px] overflow-hidden forgatepepar  paperboxshadow '>

@@ -33,7 +33,40 @@ function ChangePasswordDrawer() {
     setShowPasswordNew((prev) => !prev);
   };
 
- 
+  const changePassword = useFormik({
+    initialValues: {
+      password: "",
+      newPassword: "",
+    },
+
+    validationSchema: Yup.object().shape({
+      password: Yup.string()
+        .trim()
+        .required("Password is Required")
+        .matches(REGEX.STORAGE, STRING.PAASWORD_STORANGE),
+      newPassword: Yup.string()
+        .trim()
+        .required("New Password is Required")
+        .matches(REGEX.STORAGE, STRING.PAASWORD_STORANGE),
+    }),
+
+    onSubmit: async (values) => {
+      try {
+        actions.loder.setLoading(true);
+        const response = await ChangePassword(values);
+        const { statusCode, message } = response?.data;
+        if (statusCode === 200) {
+          toast.success(message);
+          onCancel();
+        } else {
+          toast.error(message);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      actions.loder.setLoading(false);
+    },
+  });
 
   return (
     <>
