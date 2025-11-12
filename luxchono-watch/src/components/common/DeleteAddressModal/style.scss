@@ -1,0 +1,66 @@
+@import "../../../constants/color";
+
+.delete_address {
+
+    .MuiDialog-paper {
+        background-color: $white !important;
+        color: white !important;
+        border: 1px solid #A9A9A9 !important;
+        width: 400px;
+    }
+
+
+
+    .delete_remove_btn {
+        color: $white !important;
+        height: 2.8rem;
+        font-weight: 600 !important;
+        text-transform: capitalize !important;
+        font-size: 1rem !important;
+        border-radius: 10px !important;
+        cursor: pointer;
+        width: 10rem;
+    }
+
+    .delete_cancel_btn {
+        // background-color: $darkbg !important;
+        width: 200px;
+        color: $primary !important;
+        height: 2.8rem;
+        font-weight: 600 !important;
+        text-transform: capitalize !important;
+        font-size: 1rem !important;
+        border-radius: 10px !important;
+        cursor: pointer;
+        width: 10rem;
+    }
+
+
+    @media (max-width: 500px) {
+
+        .delete_remove_btn {
+            height: 2.4rem;
+            font-size: 0.8rem !important;
+            width: 5rem;
+        }
+
+        .delete_cancel_btn {
+            height: 2.4rem;
+            font-size: 0.8rem !important;
+            width: 5rem;
+        }
+
+
+        .MuiDialogContent-root {
+            padding: 14px 12px !important;
+        }
+
+
+        .delete_add_title {
+            font-size: 18px !important;
+        }
+
+
+    }
+
+}

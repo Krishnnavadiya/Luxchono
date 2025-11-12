@@ -1,0 +1,151 @@
+@import "../../../constants/color";
+
+.add_address_drawer_header_wrapper {
+    border-bottom: 1px solid $light_text;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    width: 390px;
+    position: fixed;
+    background-color: $white;
+    z-index: 1;
+}
+
+.add_address_div {
+    margin-top: 4rem;
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .first_from_value {
+        .MuiInputBase-root {
+            font-size: 15px !important;
+            border-radius: 10px !important;
+            height: 45px;
+        }
+    }
+
+    .input_heading {
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    .secound_from_value {
+        .MuiInputBase-root {
+            font-size: 15px !important;
+            border-radius: 10px !important;
+            height: 45px;
+        }
+    }
+
+    .add_address_btn {
+        font-weight: 600;
+        height: 2.5rem;
+        color: $primary !important;
+        text-transform: capitalize;
+        font-size: 17px;
+        width: 100%;
+        margin-top: 0.5rem;
+        cursor: pointer;
+    }
+
+    .select_error {
+        color: $error !important;
+        font-weight: 600;
+        font-size: 0.75rem;
+        margin-left: 1rem;
+    }
+}
+
+
+//address
+.add_address_drawer_footer {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 15px 15px;
+    border-top: 1px solid $light_text;
+    position: fixed;
+    bottom: 0px;
+    background-color: $white;
+    z-index: 10;
+    width: 390px;
+
+    .add_close_btn {
+        font-weight: 600;
+        height: 2.5rem;
+        color: $primary !important;
+        text-transform: capitalize;
+        font-size: 15px;
+        margin-top: 0.5rem;
+        width: 6rem !important;
+        cursor: pointer;
+    }
+
+    .Add_btn {
+        font-weight: 600;
+        height: 2.5rem;
+        color: $white !important;
+        text-transform: capitalize;
+        font-size: 15px;
+        margin-top: 0.5rem;
+        width: 6rem !important;
+        cursor: pointer;
+    }
+}
+
+
+@media (max-width: 700px) {
+    .add_addres_drawer_div {
+        width: 290px !important;
+    }
+
+    .add_address_drawer_header_wrapper {
+        width: 290px !important;
+    }
+
+    .add_address_drawer_footer {
+        width: 290px !important;
+    }
+
+    .add_close_btn {
+        font-size: 14px;
+        width: 4.8rem !important;
+    }
+
+    .input_heading {
+        font-size: 13px !important;
+    }
+
+    .Add_btn {
+        font-size: 14px !important;
+        width: 4.8rem !important;
+    }
+
+    .add_addres_title {
+        font-size: 18px !important;
+    }
+
+    .close_icon {
+        font-size: 20px !important;
+    }
+
+}
+
+@media (max-width: 450px) {
+    .add_addres_drawer_div {
+        width: 270px !important;
+    }
+
+    .add_address_drawer_header_wrapper {
+        width: 270px !important;
+    }
+
+    .add_address_drawer_footer {
+        width: 270px !important;
+    }
+
+}
