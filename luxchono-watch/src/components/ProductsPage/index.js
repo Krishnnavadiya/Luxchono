@@ -33,7 +33,17 @@ export default function ProductsPage() {
     const { data: LikeProductApiData, isFetching: likeProductFetching } = useGetLikeProductQuery();
     const [productData, setProduct] = useState();
 
-    
+    useEffect(() => {
+        actions.loder.setLoading(ProductFetching && likeProductFetching)
+        setProduct(ProductApiData?.data)
+        actions.loder.setLoading(ProductFetching && likeProductFetching)
+    }, [ProductApiData])
+
+    useEffect(() => {
+        actions.loder.setLoading(ProductFetching)
+        refetch();
+        actions.loder.setLoading(ProductFetching)
+    }, [search, filterStartPrice, filterEndPrice, filterBeand, filterCategory])
 
     return (
         <>
