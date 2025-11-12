@@ -1,0 +1,33 @@
+@import "../../constants/color";
+
+.main_div {
+    .heading_first {
+        color: black;
+        font-weight: 600;
+        font-size: 21px;
+    }
+
+    .fisrt_dec_div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 1rem;
+
+    }
+
+    .secound_heading_div {
+        color: black;
+        font-weight: 600;
+        font-size: 21px;
+        margin-top: 1rem;
+
+
+    }
+
+    .secound_dec_div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 1rem;
+    }
+}
