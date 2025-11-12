@@ -1,0 +1,77 @@
+@import "../../../constants/color";
+
+.cancel_order {
+
+    .MuiDialog-paper {
+        background-color: $white !important;
+        color: white !important;
+        border: 1px solid #A9A9A9 !important;
+        width: 350px;
+    }
+
+
+    .yes_btn {
+        color: $white !important;
+        height: 2.6rem;
+        font-weight: 600 !important;
+        text-transform: capitalize !important;
+        font-size: 1rem !important;
+        border-radius: 10px !important;
+        cursor: pointer;
+        width: 8rem;
+    }
+
+    .cancel_btn {
+        // background-color: $darkbg !important;
+
+        color: $primary !important;
+        height: 2.6rem;
+        font-weight: 600 !important;
+        text-transform: capitalize !important;
+        font-size: 1rem !important;
+        border-radius: 10px !important;
+        cursor: pointer;
+        width: 8rem;
+    }
+
+    .warning_icon {
+        font-size: 30px;
+    }
+
+
+    @media (max-width: 500px) {
+
+
+        .yes_btn {
+            height: 2.3rem;
+            font-size: 0.8rem !important;
+            width: 5rem;
+        }
+
+        .cancel_btn {
+            height: 2.3rem;
+            font-size: 0.8rem !important;
+            width: 5rem;
+        }
+
+
+        .MuiDialogContent-root {
+            padding: 14px 12px !important;
+        }
+
+        .warning_icon {
+            font-size: 25px !important;
+        }
+
+        .cancel_item_title {
+            font-size: 18px !important;
+        }
+
+        .cancel_item_dec {
+            font-size: 14px !important;
+        }
+
+
+    }
+
+}
