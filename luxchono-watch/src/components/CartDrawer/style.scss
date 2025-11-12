@@ -1,0 +1,364 @@
+@import "../../constants/color";
+
+.cart_drawer_header_wrapper {
+    border-bottom: 1px solid $light_text;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    width: 400px;
+    position: fixed;
+    background-color: $white;
+    z-index: 1;
+
+}
+
+.noitem_icon {
+    font-size: 100px !important;
+}
+
+.noitem_title {
+    font-weight: 700;
+}
+
+.noitem_dec {
+    font-weight: 600;
+}
+
+.noitem_link {
+    font-weight: 600;
+}
+
+.cart_products {
+
+    .MuiStepLabel-label {
+        font-weight: 600 !important;
+        font-size: 17px !important;
+    }
+
+    .paperboxshadow {
+        min-height: 9rem !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    margin-top: 4rem;
+
+    .cart_img {
+        width: 100px;
+        height: 130px;
+        overflow: hidden;
+    }
+
+
+
+    .quantity_btn {
+        font-weight: 600;
+        height: 1.4rem;
+        color: $primary !important;
+        text-transform: capitalize;
+        font-size: 14px;
+        padding: 0.5rem;
+        cursor: pointer !important;
+    }
+
+
+
+    .cart_add_icon {
+        font-size: 23px !important;
+    }
+
+    .address_error {
+        color: $error;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+
+    .cart_add_address_btn {
+        font-weight: 600;
+        height: 2.5rem;
+        color: $primary !important;
+        text-transform: capitalize;
+        font-size: 17px;
+        width: 100%;
+        margin-top: 0.5rem;
+        cursor: pointer;
+    }
+}
+
+//address
+.address_div {
+
+
+    .addres_heading {
+        font-weight: 600;
+        font-size: 17px;
+    }
+
+    .change_btn {
+        background-color: $secondary;
+        padding: 0.2rem;
+        color: $primary ;
+        border-radius: 5px;
+
+        .change_text {
+            font-size: 14px;
+        }
+    }
+
+    .add_name {
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .add_address {
+        font-size: 16px;
+    }
+
+    .add_phon {
+        font-size: 16px;
+
+    }
+}
+
+
+.drawer_footer {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 15px 15px;
+    border-top: 1px solid $light_text;
+    position: fixed;
+    bottom: 0px;
+    background-color: $white;
+    z-index: 10;
+    width: 400px;
+
+    .total_price {
+        border-radius: 0px 0px 10px 10px !important;
+    }
+
+    .items_menus {
+        display: flex;
+        border: 1px dashed $darkbg;
+        padding: 0.5rem;
+        border-bottom: none !important;
+        border-radius: 10px 10px 00px 00px;
+    }
+
+    .place_order_btn {
+        font-weight: 600;
+        height: 2.5rem;
+        color: $primary !important;
+        text-transform: capitalize;
+        font-size: 15px;
+        margin-top: 0.5rem;
+        cursor: pointer;
+
+    }
+
+    //summery btn
+    .order_back {
+        font-weight: 600;
+        height: 2.5rem;
+        color: $primary !important;
+        text-transform: capitalize;
+        font-size: 15px;
+        margin-top: 0.5rem;
+        width: 6rem !important;
+        cursor: pointer;
+    }
+
+    .continue {
+        font-weight: 600;
+        height: 2.5rem;
+        color: $white !important;
+        text-transform: capitalize;
+        font-size: 15px;
+        margin-top: 0.5rem;
+        width: 8rem !important;
+        cursor: pointer;
+    }
+
+    .cod {
+        font-weight: 600;
+        height: 2.5rem;
+        color: $white !important;
+        text-transform: capitalize;
+        font-size: 15px;
+        margin-top: 0.5rem;
+        cursor: pointer;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .cart_drawer_header_wrapper {
+        width: 300px;
+    }
+
+    .noitem_icon {
+        font-size: 70px !important;
+    }
+
+    .noitem_title {
+        font-size: 17px !important;
+    }
+
+    .noitem_dec {
+        font-size: 14px !important;
+    }
+
+    .noitem_link {
+        font-size: 13px !important;
+    }
+
+    .cart_products {
+        .MuiStepLabel-label {
+            font-size: 12px !important;
+        }
+
+        .paperboxshadow {
+            min-height: 9rem !important;
+        }
+
+        .paperboxshadow {
+
+
+            .cart_delete_icon {
+                font-size: 20px;
+            }
+
+            .cart_img {
+                width: 80px;
+                height: 100px;
+            }
+
+            .cart_name {
+                font-size: 14px;
+            }
+
+            .cart_price {
+                font-size: 12px;
+            }
+        }
+
+        .cart_item {
+            font-size: 14px !important;
+        }
+
+        .cart_discount {
+            font-size: 14px !important;
+        }
+
+        .cart_charge {
+            font-size: 14px !important;
+        }
+
+        .cart_total {
+            font-size: 16px !important;
+        }
+
+    }
+
+    .address_error {
+        font-size: 11px !important;
+    }
+
+    .cart_add_address_btn {
+        font-size: 13px !important;
+    }
+
+    .addres_heading {
+        font-size: 15px !important;
+    }
+
+    .add_address {
+        font-size: 14px !important;
+    }
+
+    .add_phon {
+        font-size: 14px !important;
+    }
+
+    .change_btn {
+        padding: 2px !important;
+
+        .change_text {
+            font-size: 13px !important;
+        }
+    }
+
+    .cart_drawer_div {
+        width: 300px !important;
+    }
+
+    .cart_title {
+        font-size: 18px !important;
+    }
+
+    .drawer_footer {
+        width: 300px;
+    }
+
+    .address_div {
+        min-height: 9rem !important;
+    }
+
+    .drawer_footer {
+
+        //summery btn
+        .order_back {
+            font-size: 14px !important;
+            width: 4.8rem !important;
+        }
+
+        .continue {
+            font-size: 14px !important;
+            width: 7rem !important;
+        }
+
+        .cod {
+            font-size: 14px !important;
+        }
+
+        .delivered_title {
+            font-size: 13px !important;
+
+        }
+    }
+}
+
+@media (max-width: 450px) {
+
+    .cart_drawer_header_wrapper {
+        width: 270px;
+    }
+
+    .cart_drawer_div {
+        width: 270px !important;
+    }
+
+    .drawer_footer {
+        width: 270px;
+
+    }
+
+    .cart_item {
+        font-size: 12px !important;
+    }
+
+    .cart_discount {
+        font-size: 12px !important;
+    }
+
+    .cart_charge {
+        font-size: 12px !important;
+    }
+
+    .cart_total {
+        font-size: 14px !important;
+    }
+
+
+}
