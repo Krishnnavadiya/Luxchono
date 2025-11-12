@@ -22,7 +22,35 @@ export default function ForgotPassword() {
   const [VerifyEmail, { isLoading }] = useVerifyEmailMutation();
   const navigate = useNavigate();
 
- 
+  const VerifyEmails = useFormik({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: Yup.object().shape({
+      email: Yup.string()
+        .required(STRING.LOGIN_EMAIL_REQUIRED)
+        .matches(REGEX.EMAIL, STRING.LOGIN_EMAIL_FORMAT),
+    }),
+    onSubmit: async (values) => {
+      try {
+        const response = await VerifyEmail(values);
+        const { statusCode, message, result } = response?.data;
+        if (statusCode === 200) {
+          toast.success(message);
+          navigate("/otpverify", {
+            state: {
+              email: values?.email,
+            },
+          });
+        } else {
+          toast.error(message);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+
   return (
     <div className="flex items-center justify-center  h-[100vh] fordatecontainer">
       <Paper className="!rounded-[40px] w-[1080px] overflow-hidden forgatepepar  paperboxshadow ">

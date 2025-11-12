@@ -21,7 +21,34 @@ export default function OtpVerify() {
   const { state } = location;
 
   console.log(state, "state");
-  
+  const OtpVerifys = useFormik({
+    initialValues: {
+      verifyOtp: state?.verifyOtp,
+    },
+    validationSchema: Yup.object().shape({
+      verifyOtp: Yup.string()
+        .length(4, "Enter valid OTP")
+        .required("OTP is a required "),
+    }),
+    onSubmit: async (values) => {
+      const body = {
+        email: state?.email,
+        otp: values?.verifyOtp,
+      };
+      const response = await VerifyOtp(body);
+      const { statusCode, message, result } = response?.data;
+      if (statusCode === 200) {
+        navigate("/register", {
+          state: {
+            emails: state?.email,
+          },
+        });
+        toast.success(message);
+      } else {
+        toast.error(message);
+      }
+    },
+  });
 
   function matchIsNumeric(text) {
     const isNumber = typeof text === "number";
