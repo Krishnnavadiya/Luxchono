@@ -1,0 +1,25 @@
+@import "../../constants/color";
+
+.mnavbar {
+    .active_button {
+        border-bottom: 1px solid $secondary_light;
+        border-radius: 0px;
+    }
+
+    .active_button_mobile {
+       color: $primary !important;
+    }
+
+
+
+
+
+}
+
+@media (max-width: 600px) {
+
+    .MuiToolbar-root{
+        padding-right: 00px !important;
+    }
+
+}
