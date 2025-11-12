@@ -1,0 +1,110 @@
+@import "../../constants/color";
+
+.drawer_header_wrapper {
+    border-bottom: 1px solid $light_text;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    width: 400px;
+    position: fixed;
+    background-color: $white;
+}
+
+.like_products {
+    margin-top: 4rem;
+
+    .paperboxshadow {
+        min-height: 9rem !important;
+    }
+
+    .like_img {
+        width: 110px;
+        height: 130px;
+        overflow: hidden;
+    }
+
+    .like_icon {
+        font-size: 20px;
+    }
+
+    .noitem_title {
+        font-weight: 700;
+    }
+
+    .noitem_link {
+        font-weight: 600;
+    }
+}
+
+
+
+@media (max-width: 700px) {
+
+    .drawer_header_wrapper {
+        width: 300px;
+
+    }
+
+    .like_products {
+        .paperboxshadow {
+            min-height: 9rem !important;
+
+            .like_icon {
+                font-size: 18px;
+            }
+
+            .like_img {
+                width: 80px;
+                height: 100px;
+
+            }
+
+            .like_name {
+                font-size: 14px;
+            }
+
+            .like_price {
+                font-size: 12px;
+            }
+
+            .start_icon {
+                font-size: 20px;
+            }
+
+            .rating_text {
+                font-size: 12px;
+            }
+        }
+
+        .noitem_title {
+            font-size: 17px !important;
+        }
+
+        .noitem_link {
+            font-size: 13px !important;
+        }
+
+    }
+
+    .like_drawer_div {
+        width: 300px !important;
+    }
+
+    .like_title {
+        font-size: 18px !important;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .drawer_header_wrapper {
+        width: 270px !important;
+
+    }
+
+    .like_drawer_div {
+        width: 270px !important;
+    }
+
+
+}
