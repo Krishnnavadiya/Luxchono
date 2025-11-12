@@ -1,0 +1,59 @@
+@import "../../../constants/color";
+
+.rating {
+
+    .MuiDialog-paper {
+        background-color: $white !important;
+        color: white !important;
+        border: 1px solid #A9A9A9 !important;
+        width: 400px;
+        border-radius: 10px !important;
+    }
+
+    .MuiDialogContent-root {
+        padding: 20px 20px !important;
+        padding-bottom: 30px !important;
+    }
+
+    .MuiFormControl-root {
+        width: 100% !important;
+    }
+
+    .rating_content {
+
+        .rating_div {
+            display: flex;
+            justify-content: left;
+
+            .star {}
+        }
+
+        .dec_div {
+            margin-top: 1rem;
+        }
+
+        .addButton {
+            color: $white !important;
+            height: 2.8rem;
+            font-weight: 700 !important;
+            text-transform: capitalize !important;
+            font-size: 1rem !important;
+            border-radius: 12px !important;
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 700px) {
+
+        .rating_content {
+            .star {
+                font-size: 40px !important;
+            }
+        }
+
+        .addButton {
+            font-size: 0.8rem !important;
+        }
+    }
+
+}
