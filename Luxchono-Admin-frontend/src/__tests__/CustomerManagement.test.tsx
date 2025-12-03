@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 const mockGetAllCustomers = jest.fn();
 const mockUpdateCustomerStatus = jest.fn();
 
-jest.mock('../../api/Customers', () => ({
+jest.mock('../api/Customers', () => ({
   useGetAllCustomerQuery: () => ({
     data: [
       {

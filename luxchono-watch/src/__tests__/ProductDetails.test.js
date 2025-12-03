@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 const mockAddToCart = jest.fn();
 const mockToggleLike = jest.fn();
 
-jest.mock('../../api/Product', () => ({
+jest.mock('../api/Product', () => ({
   useGetOneProductQuery: () => ({
     data: {
       product: {
@@ -35,7 +35,7 @@ jest.mock('../../api/Product', () => ({
   }),
 }));
 
-jest.mock('../../api/Cart', () => ({
+jest.mock('../api/Cart', () => ({
   useGetCartIdsQuery: () => ({
     data: [],
     isFetching: false,
@@ -44,7 +44,7 @@ jest.mock('../../api/Cart', () => ({
 
 // Mock Redux store
 const mockToggleLikeAction = jest.fn();
-jest.mock('../../redux/store', () => ({
+jest.mock('../redux/store', () => ({
   actions: {
     toggleLike: mockToggleLikeAction,
     toggleLoginAlert: jest.fn(),

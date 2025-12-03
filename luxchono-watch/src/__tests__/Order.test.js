@@ -7,7 +7,7 @@ const mockMakeOrder = jest.fn();
 const mockPaymentOrder = jest.fn();
 const mockPaymentVerification = jest.fn();
 
-jest.mock('../../api/Order', () => ({
+jest.mock('../api/Order', () => ({
   useMakeOrderMutation: () => [mockMakeOrder, { isLoading: false }],
   usePaymentOrderMutation: () => [mockPaymentOrder, { isLoading: false }],
   usePaymentVerificationMutation: () => [mockPaymentVerification, { isLoading: false }],
@@ -34,7 +34,7 @@ jest.mock('../../api/Order', () => ({
 
 // Mock Redux store
 const mockToggleLoginAlert = jest.fn();
-jest.mock('../../redux/store', () => ({
+jest.mock('../redux/store', () => ({
   actions: {
     toggleLoginAlert: mockToggleLoginAlert,
   },
