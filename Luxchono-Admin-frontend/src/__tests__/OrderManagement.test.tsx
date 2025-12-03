@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 const mockGetAllOrders = jest.fn();
 const mockUpdateOrderStatus = jest.fn();
 
-jest.mock('../../api/Orders', () => ({
+jest.mock('../api/Orders', () => ({
   useGetAllOrderQuery: () => ({
     data: [
       {

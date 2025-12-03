@@ -4,7 +4,7 @@ import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 
 interface CustomAppBarProps extends MuiAppBarProps {
     open?: boolean;
-    theme?: Theme; // Make theme optional
+    theme?: Theme; 
 }
 const drawerWidth = 240;
 

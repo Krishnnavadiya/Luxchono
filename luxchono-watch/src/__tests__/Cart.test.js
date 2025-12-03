@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 // Mock the API hooks
 const mockToggleCart = jest.fn();
 
-jest.mock('../../redux/store', () => ({
+jest.mock('../redux/store', () => ({
   actions: {
     toggleCart: mockToggleCart,
   },
